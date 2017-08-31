@@ -1,0 +1,33 @@
+<div class="container">
+    <h1 class="display-3">Tus Carreras</h1>
+
+    <!-- Wide card with share menu button -->
+    <style>
+    .demo-card-wide.mdl-card {
+      width: 450px;
+    }
+    .demo-card-wide > .mdl-card__title {
+      color: #000;
+      height: 176px;
+      background: url('http://noticias.universia.cl/net/images/educacion/e/es/est/estudiar-animacion-.jpg') center / cover;
+    }
+    .demo-card-wide > .mdl-card__menu {
+      color: #fff;
+    }
+    </style>
+    
+    <div class="row">
+        <div class="col-sm-6" *ngFor="let carrera of carreras">
+            <div class="card demo-card-wide mdl-card mdl-shadow--2dp mb-3">
+            <div class="mdl-card__title">
+                
+            </div>
+            <div class="mdl-card__supporting-text">
+                <h2 class="mdl-card__title-text">{{carrera.Nombre}}</h2>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <button class="btn btn-outline-info" [routerLink]="['/member/careers', carrera.CarreraID]"> Ver Miembros</button>
+            </div>
+            </div>
+        </div>
+    <div>

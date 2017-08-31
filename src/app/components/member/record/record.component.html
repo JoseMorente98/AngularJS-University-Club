@@ -1,0 +1,58 @@
+<div class="container">
+    <h1 class="display-1">Historial de Pagos</h1><hr><br>
+    <h1 class="display-4">Mensualidades</h1>
+
+    <!-- Wide card with share menu button -->
+    <style>
+    .demo-card-wide.mdl-card {
+      width: 450px;
+    }
+    .demo-card-wide > .mdl-card__title {
+      color: #000;
+      height: 176px;
+      background: url('http://s1.picswalls.com/wallpapers/2014/08/11/money-photos_090607471_192.jpg') center / cover;
+    }
+    .demo-card-wide > .mdl-card__menu {
+      color: #fff;
+    }
+    </style>
+    
+    <div class="row">
+        <div class="col-sm-6" *ngFor="let membresia of memberships">
+            <div class="card demo-card-wide mdl-card mdl-shadow--2dp mb-3">
+            <div class="mdl-card__title">
+                
+            </div>
+                <div class="mdl-card__supporting-text">
+                    <h2 class="mdl-card__title-text">{{membresia.Motivo}} de {{membresia.Mes}}</h2>
+                    <p>Fecha y Hora: {{membresia.FechaHora}} <br>
+                    Cantidad: Q {{membresia.Pago}} <br>
+                    Multa: Q {{membresia.Mora}} <br>
+                    Pagado en: {{membresia.MedioPago}}
+                    </p>
+                    <h2 class="mdl-card__title-text">Total {{membresia.Total}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="display-4">Otros</h1>
+    <div class="row">
+        <div class="col-sm-6" *ngFor="let membresia of membershipsOther">
+            <div class="card demo-card-wide mdl-card mdl-shadow--2dp mb-3">
+            <div class="mdl-card__title">
+                
+            </div>
+                <div class="mdl-card__supporting-text">
+                    <h2 class="mdl-card__title-text">{{membresia.Motivo}} de {{membresia.Mes}}</h2>
+                    <p>Fecha y Hora: {{membresia.FechaHora}} <br>
+                    Cantidad: Q {{membresia.Pago}} <br>
+                    Multa: Q {{membresia.Mora}} <br>
+                    Pagado en: {{membresia.MedioPago}}
+                    </p>
+                    <h2 class="mdl-card__title-text">Total {{membresia.Total}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

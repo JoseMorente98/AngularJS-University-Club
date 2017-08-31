@@ -1,0 +1,39 @@
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Administrator University Club</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" oninput="w3.filterHTML('#myTable', '.items', this.value)" type="text" placeholder="Search..." aria-label="Search">
+          </form>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">University Club</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link nav-link" [routerLink]="['administrators']">Administradores</a>
+        <a class="mdl-navigation__link nav-link" [routerLink]="['financiers']">Financieros</a>
+        <a class="mdl-navigation__link nav-link" [routerLink]="['members']">Miembros</a>
+        <a class="mdl-navigation__link nav-link" [routerLink]="['careers']">Carreras</a>
+        <a class="mdl-navigation__link nav-link" [routerLink]="['mails']">Correos</a>
+        <a class="mdl-navigation__link nav-link" href="" (click)="logOut()">Cerrar Sesión</a>
+      </nav>
+    </div>
+    <div class="body-content">
+            <router-outlet></router-outlet>
+    </div>
+    <main class="mdl-layout__content">
+            
+    </main>
+    <footer class="mdl-mini-footer">
+      <div class="mdl-mini-footer__left-section">
+        <div class="mdl-logo">University Club 2017 ©</div>
+      </div>
+    </footer>
+  </div>

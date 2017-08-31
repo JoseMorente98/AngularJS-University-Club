@@ -1,0 +1,29 @@
+<div class="container">
+    <h1 class="display-3">Miembros Registrados</h1>    
+    <table id="myTable" class="table">
+        <thead class="thead">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>NIT</th>        
+            <th>Correo</th>
+            <th>Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="items" *ngFor="let miembro of members">
+            <td>{{miembro.UsuarioID}}</td>
+            <td>{{miembro.Nombre}}</td>
+            <td>{{miembro.Apellido}}</td>
+            <td>{{miembro.Nit}}</td>
+            <td>{{miembro.Correo}}</td>
+            <td>
+            <div class="btn-group">
+                <button class="btn btn-outline-success" [routerLink]="['/financier/members', miembro.UsuarioID]">Ver Pagos</button>
+            </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

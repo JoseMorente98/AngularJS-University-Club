@@ -1,0 +1,133 @@
+
+<!-- Uses a transparent header that draws on top of the layout's background -->
+    <style>
+        .demo-layout-transparent {
+          background: url('../../../../assets/Wallpaper.jpg') center / cover;
+        }
+        .demo-layout-transparent .mdl-layout__header,
+        .demo-layout-transparent .mdl-layout__drawer-button {
+          /* This background is dark, so we set text to white. Use 87% black instead if
+             your background is light. */
+          color: white;
+        }
+
+        .demo-card-wide.mdl-card {
+          width: 1000px;
+        }
+        .demo-card-wide > .mdl-card__title {
+          color: #fff;
+          height: 176px;
+          background: url('../assets/demos/welcome_card.jpg') center / cover;
+        }
+        .demo-card-wide > .mdl-card__menu {
+          color: #fff;
+        }
+    </style>
+    
+    
+        <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+          <header class="mdl-layout__header mdl-layout__header--transparent">
+            <div class="mdl-layout__header-row">
+              <!-- Title -->
+              <span class="mdl-layout-title">University Club Register</span>
+              <!-- Add spacer, to align navigation to the right -->
+              <div class="mdl-layout-spacer"></div>
+              <!-- Navigation -->
+            </div>
+          </header>
+        </div>
+    <br><br><br><br>
+    <form [formGroup]="formRegistrar" (ngSubmit)="addMiembro()" >
+    <div class="container demo-card-wide mdl-card mdl-shadow--2dp">
+      <div>
+          <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>{{ notificacion.mensaje }}</strong>
+          </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputNombre" class="col-form-label">Nombre</label>
+                  <input type="text" class="form-control" formControlName="Nombre" placeholder="Nombre">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputApellido" class="col-form-label">Apellido</label>
+                  <input type="text" class="form-control" formControlName="Apellido" placeholder="Apellido">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputNombre" class="col-form-label">Fecha de Nacimiento</label>
+                  <input type="date" class="form-control" formControlName="FechaNacimiento" placeholder="Fecha de Nacimiento">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputApellido" class="col-form-label">NIT</label>
+                  <input type="text" class="form-control" formControlName="Nit" placeholder="Nit">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputNombre" class="col-form-label">Profesión</label>
+                  <select class="form-control" formControlName="Profesion">
+                      <option value="Gerente de Administración de Empresas">Gerente de Administración de Empresas</option>
+                      <option value="Gerente de Marketing y Mercadotecnia">Gerente de Marketing y Mercadotecnia</option>
+                      <option value="Gerente de Contabilidad y Auditoría">Gerente de Contabilidad y Auditoría</option>
+                      <option value="Gerente Industrial">Gerente Industrial</option>
+                      <option value="Gerente de Informática y Sistemas">Gerente de Informática y Sistemas</option>
+                      <option value="Gerente de Recursos Humanos">Gerente de Recursos Humanos</option>
+                      <option value="Gerente de Mecánica">Gerente de Mecánica</option>
+                      <option value="Gerente de Finanzas">Gerente de Finanzas</option>
+                      <option value="Psicologó">Psicologó</option>
+                      <option value="Enfermera">Enfermera</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputApellido" class="col-form-label">Grado Academico</label>
+                  <select class="form-control"  formControlName="GradoAcademico">
+                      <option value="Diplomado">Diplomado</option>
+                      <option value="Técnico">Técnico</option>
+                      <option value="Técnico Superior">Técnico Superior</option>
+                      <option value="Licenciatura">Licenciatura</option>
+                      <option value="Maestría">Maestría</option>
+                      <option value="Doctorado">Doctorado</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputNombre" class="col-form-label">Carrera</label>
+                  <select class="form-control" formControlName="CarreraID">
+                    <option *ngFor="let carrera of careers" value="{{carrera.CarreraID}}">{{carrera.Nombre}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputApellido" class="col-form-label">Año de Graduación</label>
+                  <input type="date" class="form-control" formControlName="FechaGraduacion" placeholder="Año de Graduación">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputNombre" class="col-form-label">Correo</label>
+                  <input type="email" class="form-control" formControlName="Correo" placeholder="Correo">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputApellido" class="col-form-label">Contraseña</label>
+                  <input type="password" class="form-control" formControlName="Contrasena" placeholder="Contraseña">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Acepto los términos y condiciones.
+                  </label>
+                </div>
+              </div>
+        </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
+          Registrarse
+        </button>
+      </div>
+    </div>
+  </form>

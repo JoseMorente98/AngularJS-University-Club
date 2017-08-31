@@ -1,0 +1,36 @@
+<div class="container">
+    <h1 class="display-1">Miembros al Día</h1>
+    <hr>
+<table class="table">
+    <thead class="thead">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Fecha de Transacción</th>
+        <th>Pago</th>
+        <th>Mora</th>
+        <th>Medio Pago</th>            
+        <th>Motivo</th>
+        <th>Total</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let membresia of members">
+            <td>{{membresia.Nombre}}</td>
+            <td>{{membresia.Apellido}}</td>
+            <td>{{membresia.FechaHora}}</td>
+            <td>{{membresia.Pago}}</td>
+            <td>{{membresia.Mora}}</td>
+            <td>{{membresia.MedioPago}}</td>
+            <td>{{membresia.Motivo}}</td>
+            <td>Q {{membresia.Total}}</td>
+            <td>
+            <div class="btn-group">
+                <button class="btn btn-outline-success" [routerLink]="['/financier/members', membresia.UsuarioID]">Ver Pagos</button>
+            </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

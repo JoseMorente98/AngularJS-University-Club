@@ -1,0 +1,104 @@
+<div class="container">
+        <h1 class="display-1">Gestion de Carreras</h1>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-toggle="modal" data-target="#modalAgregarCarrera">Agregar
+        </button>
+        <hr>
+    <table id="myTable" class="table">
+        <thead class="thead">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="items" *ngFor="let carrera of careers">
+            <td>{{carrera.CarreraID}}</td>
+            <td>{{carrera.Nombre}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-info" (click)="LoadCarrera(carrera.CarreraID)" data-toggle="modal" data-target="#modalActualizarCarrera">Actualizar</button>
+                <button class="btn btn-outline-danger" (click)="DeleteCarrera(carrera.CarreraID)" >Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--MODAL AGREGAR CARRERA -->
+<div  id="modalAgregarCarrera" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="formularioCarrera" (ngSubmit)="AddCarrera()" >
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Carrera</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacion.mensaje }}</strong>
+          </div>
+        <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{ notificacionError.mensaje }}</strong>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNombre">Nombre </label>
+            <input class="form-control"  formControlName="Nombre" type="text" placeholder="Nombre de la categoría." />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+          <button type="submit" [disabled]="!formularioCarrera.valid"  class="btn btn-outline-success">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--MODAL EDITAR CARRERA -->
+<div  *ngIf="formularioUpdateCarrera" id="modalActualizarCarrera" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="formularioUpdateCarrera" (ngSubmit)="UpdateCarrera()" >
+        <div class="modal-header">
+          <h5 class="modal-title">Actualizar Carrera</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{ notificacion.mensaje }}</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacionError.mensaje }}</strong>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNombre">Nombre </label>
+            <input class="form-control" type="hidden" formControlName="CarreraID" [(ngModel)]="carrera.CarreraID" placeholder="ID Categoría" />
+            <input class="form-control" type="text" formControlName="Nombre" [(ngModel)]="carrera.Nombre" placeholder="Ingrese el nombre" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-outline-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

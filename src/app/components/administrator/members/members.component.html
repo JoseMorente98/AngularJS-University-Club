@@ -1,0 +1,287 @@
+<div class="container">
+        <h1 class="display-1">Gestion de Miembros</h1>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-toggle="modal" data-target="#modalAgregarMiembro">Agregar
+        </button>
+        <hr><br>
+    <h3 class="display-4">Miembros Inactivos</h3>
+    <table id="myTable" class="table">
+        <thead class="thead">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Profesion</th>
+            <th>Grado Academico</th>            
+            <th>Correo</th>
+            <th>Fecha Registro</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="items" *ngFor="let miembro of membersDisable">
+            <td>{{miembro.UsuarioID}}</td>
+            <td>{{miembro.Nombre}}</td>
+            <td>{{miembro.Apellido}}</td>
+            <td>{{miembro.Profesion}}</td>
+            <td>{{miembro.GradoAcademico}}</td>
+            <td>{{miembro.Correo}}</td>
+            <td>{{miembro.FechaRegistro}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-info" (click)="loadMiembro(miembro.UsuarioID)" data-toggle="modal" data-target="#modalActualizarMiembro">Actualizar</button>
+                <button class="btn btn-outline-danger" (click)="deleteMiembro(miembro.UsuarioID)"  >Eliminar</button>
+                <button class="btn btn-outline-primary" [routerLink]="['/administrator/members', miembro.UsuarioID]">Ver Carreras</button>
+                <button class="btn btn-outline-success" (click)="updateActive(miembro.UsuarioID)"  >Activar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <h3 class="display-4">Miembros Activos</h3>
+    <table id="myTable" class="table">
+        <thead class="thead">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Profesion</th>
+            <th>Grado Academico</th>            
+            <th>Correo</th>
+            <th>Fecha Registro</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="items" *ngFor="let miembro of membersEnable">
+            <td>{{miembro.UsuarioID}}</td>
+            <td>{{miembro.Nombre}}</td>
+            <td>{{miembro.Apellido}}</td>
+            <td>{{miembro.Profesion}}</td>
+            <td>{{miembro.GradoAcademico}}</td>
+            <td>{{miembro.Correo}}</td>
+            <td>{{miembro.FechaRegistro}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-info" (click)="loadMiembro(miembro.UsuarioID)" data-toggle="modal" data-target="#modalActualizarMiembro">Actualizar</button>                
+                <button class="btn btn-outline-danger" (click)="deleteMiembro(miembro.UsuarioID)"  >Eliminar</button>
+                <button class="btn btn-outline-primary" [routerLink]="['/administrator/members', miembro.UsuarioID]">Ver Carreras</button>
+                <button class="btn btn-outline-success" (click)="updateActive(miembro.UsuarioID)"  >Desactivar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--MODAL AGREGAR MIEMBRO -->
+<div  id="modalAgregarMiembro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="formMember" (ngSubmit)="addMiembro()" >
+          <div class="modal-header">
+            <h5 class="modal-title">Agregar Miembro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>{{ notificacion.mensaje }}</strong>
+            </div>
+          <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacionError.mensaje }}</strong>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputNombre">Nombre</label>
+              <input class="form-control"  formControlName="Nombre" type="text" placeholder="Nombre del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputApellido">Apellido</label>
+              <input class="form-control"  formControlName="Apellido" type="text" placeholder="Apellido del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Fecha de Nacimiento</label>
+              <input class="form-control"  formControlName="FechaNacimiento" type="date" placeholder="Fecha de Nacimiento del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">NIT</label>
+              <input class="form-control"  formControlName="Nit" type="text" placeholder="No. de Nit del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Profesion</label>
+              <select class="form-control" formControlName="Profesion">
+                  <option value="Gerente de Administración de Empresas">Gerente de Administración de Empresas</option>
+                  <option value="Gerente de Marketing y Mercadotecnia">Gerente de Marketing y Mercadotecnia</option>
+                  <option value="Gerente de Contabilidad y Auditoría">Gerente de Contabilidad y Auditoría</option>
+                  <option value="Gerente Industrial">Gerente Industrial</option>
+                  <option value="Gerente de Informática y Sistemas">Gerente de Informática y Sistemas</option>
+                  <option value="Gerente de Recursos Humanos">Gerente de Recursos Humanos</option>
+                  <option value="Gerente de Mecánica">Gerente de Mecánica</option>
+                  <option value="Gerente de Finanzas">Gerente de Finanzas</option>
+                  <option value="Psicologó">Psicologó</option>
+                  <option value="Enfermera">Enfermera</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Grado Academico</label>
+              <select class="form-control"  formControlName="GradoAcademico">
+                  <option value="Diplomado">Diplomado</option>
+                  <option value="Técnico">Técnico</option>
+                  <option value="Técnico Superior">Técnico Superior</option>
+                  <option value="Licenciatura">Licenciatura</option>
+                  <option value="Maestría">Maestría</option>
+                  <option value="Doctorado">Doctorado</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCarrera">Carrera</label>
+              <select class="form-control" formControlName="CarreraID">
+                <option *ngFor="let carrera of careers" value="{{carrera.CarreraID}}">{{carrera.Nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputFechaGraduacion" >Año de Graduación</label>
+              <input class="form-control" formControlName="FechaGraduacion" type="date" placeholder="Año de Graduación del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Correo</label>
+              <input class="form-control"  formControlName="Correo" type="email" placeholder="Correo del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputContrasena">Contraseña</label>
+              <input class="form-control"  formControlName="Contrasena" type="password" placeholder="Contraseña del Miembro." />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+            <button type="submit" [disabled]="!formMember.valid"  class="btn btn-outline-success">Agregar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--MODAL AGREGAR MIEMBRO -->
+<div *ngIf="formUpdateMember" id="modalActualizarMiembro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="formUpdateMember" (ngSubmit)="updateMiembro()" >
+          <div class="modal-header">
+            <h5 class="modal-title">Actualizar Miembro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>{{ notificacion.mensaje }}</strong>
+            </div>
+          <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacionError.mensaje }}</strong>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputNombre">Nombre</label>
+              <input class="form-control" [(ngModel)]="usuario.UsuarioID" formControlName="UsuarioID" type="hidden" placeholder="ID del Miembro." />
+              <input class="form-control" [(ngModel)]="usuario.Nombre" formControlName="Nombre" type="text" placeholder="Nombre del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputApellido">Apellido</label>
+              <input class="form-control" [(ngModel)]="usuario.Apellido" formControlName="Apellido" type="text" placeholder="Apellido del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Fecha de Nacimiento</label>
+              <input class="form-control" [(ngModel)]="usuario.FechaNacimiento"  formControlName="FechaNacimiento" type="date" placeholder="Fecha de Nacimiento del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">NIT</label>
+              <input class="form-control" [(ngModel)]="usuario.Nit" formControlName="Nit" type="text" placeholder="No. de Nit del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Profesion</label>
+              <select class="form-control" [(ngModel)]="usuario.Profesion" formControlName="Profesion">
+                  <option value="Administración de Empresas">Administración de Empresas</option>
+                  <option value="Marketing y Mercadotecnia">Marketing y Mercadotecnia</option>
+                  <option value="Contabilidad y Auditoría">Contabilidad y Auditoría</option>
+                  <option value="Industrial">Industrial</option>
+                  <option value="Informática y Sistemas">Informática y Sistemas</option>
+                  <option value="Recursos Humanos">Recursos Humanos</option>
+                  <option value="Mecánica">Mecánica</option>
+                  <option value="Finanzas">Finanzas</option>
+                  <option value="Psicología">Psicología</option>
+                  <option value="Enfermería">Enfermería</option>
+                  <option value="Médico Especializado">Enfermería</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Grado Academico</label>
+              <select class="form-control" [(ngModel)]="usuario.GradoAcademico" formControlName="GradoAcademico">
+                  <option value="Diplomado">Diplomado</option>
+                  <option value="Técnico">Técnico</option>
+                  <option value="Técnico Superior">Técnico Superior</option>
+                  <option value="Licenciatura">Licenciatura</option>
+                  <option value="Maestría">Maestría</option>
+                  <option value="Doctorado">Doctorado</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Correo</label>
+              <input class="form-control"  formControlName="Correo" [(ngModel)]="usuario.Correo" type="email" placeholder="Correo del Miembro." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputContrasena">Contraseña</label>
+              <input class="form-control"  formControlName="Contrasena" [(ngModel)]="usuario.Contrasena" type="password" placeholder="Contraseña del Miembro." />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+            <button type="submit" [disabled]="!formUpdateMember.valid"  class="btn btn-outline-success">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

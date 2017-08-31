@@ -1,0 +1,98 @@
+<div class="container">
+        <h1 class="display-3">Pagos Realizados {{pagosAll}}</h1>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-toggle="modal" data-target="#modalAgregarCobro">Agregar
+        </button>
+        <hr>        
+        <table class="table">
+            <thead class="thead">
+            <tr>
+                <th>ID</th>
+                <th>Fecha Hora</th>
+                <th>Pago</th>
+                <th>Mora</th>        
+                <th>Medio Pago</th>
+                <th>Motivo</th>
+                <th>Mes Pagado</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pago of pagos">
+                <td>{{pago.MembresiaID}}</td>
+                <td>{{pago.FechaHora}}</td>
+                <td>{{pago.Pago}}</td>
+                <td>{{pago.Mora}}</td>
+                <td>{{pago.MedioPago}}</td>
+                <td>{{pago.Motivo}}</td>
+                <td>{{pago.Mes}}</td>
+                <td>Q {{pago.Total}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<!--MODAL AGREGAR COBRO -->
+<div  id="modalAgregarCobro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="formPago" (ngSubmit)="addPago()" >
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Pago del Cliente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacion.mensaje }}</strong>
+          </div>
+        <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{ notificacionError.mensaje }}</strong>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNombre">Monto a Pagar</label>
+            <input class="form-control"  formControlName="Pago" type="text" placeholder="Monto a cancelar." />
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNombre">Multa por Retraso</label>
+            <input class="form-control" formControlName="Mora" type="text" placeholder="Multa por retraso." />
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNombre">Medio de Pago</label>
+            <select class="form-control" formControlName="MedioPago">
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Cheque">Cheque</option>
+                  <option value="Tarjeta de Credito">Tarjeta de Credito</option>
+                  <option value="Tarjeta de Débito">Tarjeta de Débito</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNombre">Motivo</label>
+            <select class="form-control" formControlName="Motivo">
+                  <option value="Mensualidad">Mensualidad</option>
+                  <option value="Inscripción">Inscripción</option>
+                  <option value="Extraordinario">Extraordinario</option>
+                  <option value="Donaciones">Donaciones</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+          <button type="submit" [disabled]="!formPago.valid"  class="btn btn-outline-success">Cobrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

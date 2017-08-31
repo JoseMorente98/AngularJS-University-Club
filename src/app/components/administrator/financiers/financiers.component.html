@@ -1,0 +1,146 @@
+<div class="container">
+        <h1 class="display-1">Gestion de Financieros</h1>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-toggle="modal" data-target="#modalAgregarFinanciero">Agregar
+        </button>
+        <hr>
+    <table id="myTable" class="table">
+        <thead class="thead">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Correo</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="items" *ngFor="let financiero of financiers">
+            <td>{{financiero.UsuarioID}}</td>
+            <td>{{financiero.Nombre}}</td>
+            <td>{{financiero.Apellido}}</td>
+            <td>{{financiero.FechaNacimiento}}</td>
+            <td>{{financiero.Correo}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-info" (click)="loadFinancier(financiero.UsuarioID)" data-toggle="modal" data-target="#modalActualizarFinanciero">Actualizar</button>
+                <button class="btn btn-outline-danger" (click)="deleteFinancier(financiero.UsuarioID)"  >Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--MODAL AGREGAR FINANCIERO -->
+<div  id="modalAgregarFinanciero" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="formFinancier" (ngSubmit)="addAdministrador()" >
+          <div class="modal-header">
+            <h5 class="modal-title">Agregar Financiero</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>{{ notificacion.mensaje }}</strong>
+            </div>
+          <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacionError.mensaje }}</strong>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputNombre">Nombre</label>
+              <input class="form-control"  formControlName="Nombre" type="text" placeholder="Nombre del Financiero." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputApellido">Apellido</label>
+              <input class="form-control"  formControlName="Apellido" type="text" placeholder="Nombre del Financiero." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Correo</label>
+              <input class="form-control"  formControlName="Correo" type="email" placeholder="Correo del Financiero." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputContrasena">Contraseña</label>
+              <input class="form-control"  formControlName="Contrasena" type="password" placeholder="Contraseña del Financiero." />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+            <button type="submit" [disabled]="!formFinancier.valid"  class="btn btn-outline-success">Agregar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--MODAL ACTUALIZAR FINANCIERO -->
+  <div  *ngIf="formUpdateFinancier" id="modalActualizarFinanciero" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form [formGroup]="formUpdateFinancier" (ngSubmit)="updateFinancier()" >
+          <div class="modal-header">
+            <h5 class="modal-title">Actualizar Financiero</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>{{ notificacion.mensaje }}</strong>
+            </div>
+          <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacionError.mensaje }}</strong>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputNombre">Nombre</label>
+              <input class="form-control"  formControlName="UsuarioID" [(ngModel)]="usuario.UsuarioID"  type="hidden" placeholder="ID del Financiero." />
+              <input class="form-control"  formControlName="Nombre" [(ngModel)]="usuario.Nombre"  type="text" placeholder="Nombre del Financiero." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputApellido">Apellido</label>
+              <input class="form-control"  formControlName="Apellido" [(ngModel)]="usuario.Apellido"  type="text" placeholder="Nombre del Financiero." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCorreo">Correo</label>
+              <input class="form-control"  formControlName="Correo" [(ngModel)]="usuario.Correo"  type="email" placeholder="Correo del Financiero." />
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputContrasena">Contraseña</label>
+              <input class="form-control"  formControlName="Contrasena" [(ngModel)]="usuario.Contrasena"  type="password" placeholder="Contraseña del Financiero." />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+            <button type="submit" [disabled]="!formUpdateFinancier.valid"  class="btn btn-outline-success">Agregar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

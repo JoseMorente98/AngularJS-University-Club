@@ -1,0 +1,34 @@
+<div class="container">
+        <h1 class="display-1">Miembros de la Carrera</h1>
+        <hr>
+    
+        <style>
+        .demo-card-wide.mdl-card {
+          width: 450px;
+        }
+        .demo-card-wide > .mdl-card__title {
+          color: #000;
+          height: 176px;
+          background: url('http://noticias.universia.cl/net/images/educacion/e/es/est/estudiar-animacion-.jpg') center / cover;
+        }
+        .demo-card-wide > .mdl-card__menu {
+          color: #fff;
+        }
+        </style>
+        
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let miembro of members" >
+                <div class="card demo-card-wide mdl-card mdl-shadow--2dp mb-3">
+                <div class="mdl-card__title">
+                    
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <h1 class="mdl-card__title-text">{{miembro.Nombre}} {{miembro.Apellido}}</h1>
+                    <p>Fecha de Nacimiento: {{miembro.FechaNacimiento}} <br>
+                    E-mail: {{miembro.Correo}}</p>
+                </div>
+                </div>
+            </div>
+        <div>
+    </div>
+    

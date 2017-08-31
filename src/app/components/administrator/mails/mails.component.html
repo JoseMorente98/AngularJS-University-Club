@@ -1,0 +1,75 @@
+<div class="container">
+    <h1 class="display-1">Bandeja de Salida</h1>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" data-toggle="modal" data-target="#modalEnviarCorreo">Enviar Invitación
+    </button>
+    <hr>
+<table id="myTable" class="table">
+    <thead class="thead">
+      <tr>
+        <th>ID</th>
+        <th>Destinatario</th>
+        <th>Asunto</th>
+        <th>Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="items" *ngFor="let correo of mails">
+        <td>{{correo.CorreoID}}</td>
+        <td>{{correo.Destinatario}}</td>
+        <td>{{correo.Asunto}}</td>
+        <td>{{correo.Mensaje}}</td>
+        <td>
+          <div class="btn-group">
+            <button class="btn btn-outline-danger" (click)="deleteMail(correo.CorreoID)" >Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+
+<!--MODAL AGREGAR CORREO -->
+<div  id="modalEnviarCorreo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <form [formGroup]="formCorreo" (ngSubmit)="sendMail()" >
+    <div class="modal-header">
+      <h5 class="modal-title">Enviar Correo University Club</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{ notificacion.mensaje }}</strong>
+      </div>
+    <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{ notificacionError.mensaje }}</strong>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="inputDestinatario">Destinatario</label>
+        <input class="form-control"  formControlName="to" type="text" placeholder="Destinatario" />
+      </div>
+      <div class="form-group">
+        <label for="inputDestinatario">Asunto</label>
+        <input class="form-control"  formControlName="subject" type="text" placeholder="Destinatario" />
+      </div>
+      <div class="form-group">
+        <label for="inputDestinatario">Destinatario</label>
+        <textarea class="form-control" formControlName="text" type="text" cols="30" rows="10"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+      <button type="submit" [disabled]="!formCorreo.valid"  class="btn btn-outline-success">Enviar</button>
+    </div>
+  </form>
+</div>
+</div>
+</div>
