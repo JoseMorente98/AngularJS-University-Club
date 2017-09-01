@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
                     localStorage.setItem('Usuario', res.TipoUsuarioID);
                     setTimeout(() => {
                       $('#modalLogin').modal('hide');
-                        this.router.navigate(['/financier/records']);
+                        this.router.navigate(['/financier']);
                     }, 5000);
                 } else {
                     this.notificacionError.mensaje = res.mensaje;
@@ -108,12 +108,20 @@ export class HomeComponent implements OnInit {
             console.log("No existen token");
             this.notificacionError.mensaje = "Ingrese su usuario o contraseña correctamente.";
             this.notificacionError.estado = true;
+            setTimeout(() => {
+                this.notificacionError.mensaje = '';
+                this.notificacionError.estado = '';
+              }, 2000);
             return false;
         }
     } else {
         console.log("No existen token");
         this.notificacionError.mensaje = "Ingrese su usuario o contraseña correctamente.";
         this.notificacionError.estado = true;
+        setTimeout(() => {
+            this.notificacionError.mensaje = '';
+            this.notificacionError.estado = '';
+          }, 2000);
         return false;
     }
     });

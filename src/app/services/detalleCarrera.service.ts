@@ -42,6 +42,14 @@ export class DetalleCarreraService {
     .map(res => res.json());
   }
 
+  //OBTENER DETALLE CARRERA
+  public getCarrerasUsuario(detalleCarreraID:any) {
+    let uri = `${this.uriDetalleCarrera}/${detalleCarreraID}`;
+    return this.http.get(uri, { headers: this.headers })
+    .map(res => res.json());
+  }
+
+
   //NUEVA DETALLE CARRERA
   public addDetalleCarrera(detalleCarrera:any) {
     let data = JSON.stringify(detalleCarrera);

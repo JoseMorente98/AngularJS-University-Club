@@ -126,6 +126,8 @@ export class FinanciersComponent implements OnInit {
           setTimeout(() => {
             this.initializeFinanciers();
             $('#modalActualizarFinanciero').modal('hide');
+            this.notificacion.mensaje = '';
+            this.notificacion.estado = false;
           }, 2500);
         } else {
             this.notificacionError.mensaje = res.mensaje;

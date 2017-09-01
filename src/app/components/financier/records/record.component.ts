@@ -31,22 +31,18 @@ export class RecordsComponent implements OnInit {
 
   //CARGAR PAGOS
   public initializeAlDia() {
+    this.members.splice(0);
     var d = new Date();
     var n = d.getMonth() + 1;
     this.membresiaService.getAllMembresias().subscribe(data => {
       this.membresias = data;
-      this.usuarioService.getUsuarios().subscribe(data2 => {
-        this.usuarios = data2;
-        for(let x of this.usuarios) {
-          for(let y of this.membresias) {
-            if(x.UsuarioID === y.UsuarioID && y.Mes === n.toString()) {
-                console.log(y);
-                this.members.push(y);
-            }
+        for(let y of this.membresias) {
+          if(y.Mes === n.toString()) {
+            console.log(y);
+            this.members.push(y);
           }
-        }
-      });     
-    });   
+        }  
+    });  
   }
 
 }

@@ -16,12 +16,23 @@ declare var $:any;
 })
 export class AccountComponent implements OnInit {
   accounts:any [] = [];
+  formAccount:FormGroup;
   account:any = {
       UsuarioID: 0,
       Nombre: '',
       Apellido: '',
       Correo: ''
   }
+  profile:any;
+  notificacion:any = {
+    estado: false,
+    mensaje: ""
+  }
+  notificacionError:any = {
+    estado: false,
+    mensaje: ""
+  }
+  imageUrl: any;
 
   constructor(
     private usuarioService:UsuarioService,
@@ -29,6 +40,9 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.formAccount = new FormGroup({
+      'Imagen': new FormControl('', Validators.required)
+    });
     this.initializeAccount();
   }
 
@@ -55,5 +69,18 @@ export class AccountComponent implements OnInit {
           this.router.navigate(['/home']);
       }
     });
+  }  
+
+  imageUpload(e) {
+    let reader = new FileReader();
+    //get the selected file from event
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      //Assign the result to variable for setting the src of image element
+      this.imageUrl = reader.result;
+      
+    }
+    reader.readAsDataURL(file);
+    console.log(file.readAsBinaryString);
   }
 }

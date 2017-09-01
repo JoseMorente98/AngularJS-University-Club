@@ -32,7 +32,7 @@ export class CareersMembersComponent implements OnInit {
 
     //CARGAR MIEMBROS
     public initializePagos() {
-        this.detalleCarreraService.getDetalleCarrera(this.uri).subscribe(data => {
+        this.detalleCarreraService.getCarrerasUsuario(this.uri).subscribe(data => {
             this.members = data;    
             console.log(data);    
         });

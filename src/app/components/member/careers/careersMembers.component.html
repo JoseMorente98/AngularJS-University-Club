@@ -9,26 +9,31 @@
         .demo-card-wide > .mdl-card__title {
           color: #000;
           height: 176px;
-          background: url('http://noticias.universia.cl/net/images/educacion/e/es/est/estudiar-animacion-.jpg') center / cover;
+          background: url('http://delamanoconvenezuela.com/wp-content/uploads/2015/09/contactos-2.jpg') center / cover;
         }
         .demo-card-wide > .mdl-card__menu {
           color: #fff;
         }
         </style>
-        
+        <div class="col-sm-3">
+        <input class="form-control mr-sm-2" oninput="w3.filterHTML('#myTable', '.items', this.value)" type="text" placeholder="Search..." aria-label="Search">
+        </div><br>
         <div class="row">
-            <div class="col-sm-6" *ngFor="let miembro of members" >
+            <div id="myTable" class="col-sm-6" *ngFor="let miembro of members" >
+                <tr class="items" >
                 <div class="card demo-card-wide mdl-card mdl-shadow--2dp mb-3">
                 <div class="mdl-card__title">
-                    
                 </div>
                 <div class="mdl-card__supporting-text">
                     <h1 class="mdl-card__title-text">{{miembro.Nombre}} {{miembro.Apellido}}</h1>
                     <p>Fecha de Nacimiento: {{miembro.FechaNacimiento}} <br>
-                    E-mail: {{miembro.Correo}}</p>
+                    E-mail: {{miembro.Correo}} <br>
+                    Año de Graduación: {{miembro.FechaGraduacion}}
+                    </p>
                 </div>
                 </div>
-            </div>
+            </tr>
+        </div>
         <div>
     </div>
     

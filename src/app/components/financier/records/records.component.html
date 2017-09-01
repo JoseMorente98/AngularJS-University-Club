@@ -1,7 +1,7 @@
 <div class="container">
         <h1 class="display-1">Miembros que Deben</h1>
         <hr>
-    <table class="table">
+    <table id="myTable" class="table">
         <thead class="thead">
           <tr>
             <th>Nombre</th>
@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let membresia of members">
+            <tr class="items" *ngFor="let membresia of members">
                 <td>{{membresia.Nombre}}</td>
                 <td>{{membresia.Apellido}}</td>
                 <td>{{membresia.FechaHora}}</td>

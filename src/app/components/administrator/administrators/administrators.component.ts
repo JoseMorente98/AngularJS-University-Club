@@ -128,6 +128,8 @@ export class AdministratorsComponent implements OnInit {
           setTimeout(() => {
             this.initializeAdministradores();
             $('#modalActualizarAdministrador').modal('hide');
+            this.notificacion.mensaje = '';
+            this.notificacion.estado = false;
           }, 2500);
         } else {
             this.notificacionError.mensaje = res.mensaje;

@@ -96,6 +96,8 @@ export class CareersComponent implements OnInit {
           setTimeout(() => {
             this.initializeCareers();
             $('#modalActualizarCarrera').modal('hide');
+            this.notificacion.mensaje = '';
+            this.notificacion.estado = false;
           }, 2500);
         } else {
             this.notificacionError.mensaje = res.mensaje;

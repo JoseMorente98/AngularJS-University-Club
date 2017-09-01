@@ -2,4 +2,44 @@
     <h1 class="display-1">Configuración de Cuenta</h1><hr>
     <h2 class="display-4">Usuario {{account.Nombre}} {{account.Apellido}}</h2>
     <button class="btn btn-outline-danger" (click)="deleteAccount(account.UsuarioID)">Eliminar Cuenta</button>
+    <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalUpdateAccount">Actualizar Foto de Perfil</button>
+    
+</div>
+
+<!--MODAL ACTUALIZAR FOTO -->
+<div  id="modalUpdateAccount" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="formAccount" (ngSubmit)="UpdateAccount()" >
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Carrera</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="notificacion.estado">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ notificacion.mensaje }}</strong>
+          </div>
+        <div class="alert alert-danger" role="alert" *ngIf="notificacionError.estado">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{ notificacionError.mensaje }}</strong>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputImagen">Foto de Perfil</label>
+            <input (change)="imageUpload($event)" formControlName="Imagen" type="file"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" aria-label="Close" class="btn btn-outline-secondary" data-dissmiss="modal">Cerrar</button>
+          <button type="submit" [disabled]="formAccount.valid"  class="btn btn-outline-success">Agregar Nueva Foto</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

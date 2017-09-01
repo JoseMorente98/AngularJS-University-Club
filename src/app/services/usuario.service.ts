@@ -84,6 +84,13 @@ export class UsuarioService {
     .map(res => res.json());
   }
 
+  public updateAccount(usuario:any) {
+    let uriUsuario = `${this.uriUsuario}/api/usuariosProfile/`;
+    let data = JSON.stringify(usuario);
+    return this.http.put(uriUsuario, data, { headers: this.headers })
+    .map(res => res.json());
+  }
+
   //ELIMINAR USUARIO
   public deleteUsuario(usuarioID:number) {
     let uriUsuario = `${this.uriUsuario}/api/usuarios/${usuarioID}`;
